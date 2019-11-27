@@ -1,30 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
+<article class="media content-section">
+        <div class="media-body">
+            <p class="article-content">{{ username }} </p>
+            <p class="article-content">email_val: {{ email }} </p>
+            <p class="article-content">Username is: {{ details['username'] }} </p>
+            <p class="article-content">Email is: {{ details['email'] }} </p>
+            <p class="article-content">Password is: {{ details['psw'] }}</p>
+            <p class="article-content">Password_repeat is: {{ details['psw-repeat'] }} </p>
+            <p class="article-content">Errors:</p>
+            {% for error in errors %}
+            <p class="article-content">{{ error }} </p> 
+            {% endfor %}
+        </div>
+    </article>
     <div class="content-section">
         <form method="POST" action="">
-            {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Join Today!</legend>
                 <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-                    {{ form.username(class="form-control form-control-lg") }}
+                    <p>Username must be alphanumeric beginning with a letter and 2-50 characters long.</p>
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter username" name="username" value="{{ details['username'] }}"
+                    autocomplete="off">
                 </div>
                 <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {{ form.email(class="form-control form-control-lg") }}
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" value="{{ details['email'] }}"
+                    
+                    >
                 </div>
                 <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {{ form.password(class="form-control form-control-lg") }}
+                    <p>Password must be alphanumeric and 6-64 characters long, Containing: an Uppercase, a Lowercase, a digit.</p>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" value="{{ details['psw'] }}"
+                    
+                    >
                 </div>
                 <div class="form-group">
-                    {{ form.confirm_password.label(class="form-control-label") }}
-                    {{ form.confirm_password(class="form-control form-control-lg") }}
+                    <label for="psw-repeat"><b>Repeat Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="psw-repeat" value="{{ details['psw'] }}"
+                    
+                    >
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-            </div>
+            <button type="submit" class="registerbtn">Register</button>
         </form>
     </div>
     <div class="border-top pt-3">

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+        <article class="media content-section">
+            <div class="media-body">
+                <p class="article-content">{{ username }} </p>
+                <p class="article-content">email_val: {{ email }} </p>
+                <p class="article-content">Username is: {{ details['username'] }} </p>
+                <p class="article-content">Email is: {{ details['email'] }} </p>
+                <p class="article-content">Password is: {{ details['psw'] }}</p>
+                <p class="article-content">Password_repeat is: {{ details['psw-repeat'] }} </p>
+                <p class="article-content">Errors:</p>
+                {% for error in errors %}
+                <p class="article-content">{{ error }} </p> 
+                {% endfor %}
+            </div>
+        </article>
+{% endblock content %}
+
