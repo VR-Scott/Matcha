@@ -41,39 +41,39 @@ def register():
     # password = re.match( '?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,64}$', '')
     details = {
         'username' : '',
-        'firstname' : '',
-        'lastname' : '',
+        'name' : '',
+        'surname' : '',
         'email' : '',
         'psw' : '',
         'psw-repeat' : '',
-        'sex': 'bi-sexual',
-        'interests': [],
-        'flirts' : [],
-        'flirted' : [],
-        'matched' : [],
-        'image_name': 'default.png'
+        'bio' : ''
     }
     if request.method == 'POST':
+
+        details['username'] = request.form.get('username')
+        details['name'] = request.form.get('name')
+        details['surname'] = request.form.get('surname')
+        details['email'] = request.form.get('email')
+        details['psw'] = request.form.get('psw')
+        details['bio'] = request.form.get('bio')
+        details['psw-repeat'] = request.form.get('psw-repeat')
+
         val_username = re.match( '^[A-Za-z][A-Za-z0-9]{2,49}$', request.form.get('username'))
         val_email = re.match( '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,100}$', request.form.get('email'))
-        
+        val_name = re.match( '^[A-Z][a-zA-Z-]{1,24}$', request.form.get('name'))
+        val_surname = re.match( '^[A-Z][a-zA-Z-]{1,24}$', request.form.get('surname'))
         psw_cap = re.search( '[A-Z]', request.form.get('psw'))
         psw_low = re.search( '[a-z]', request.form.get('psw'))
         psw_dig = re.search( '[0-9]', request.form.get('psw'))
         val_psw = re.match( '^[A-Za-z\d]{6,64}$', request.form.get('psw'))
-        details['username'] = request.form.get('username')
-        # details['firstname'] = request.form.get(“firstname”)
-        # details['lastname'] = request.form.get('lastname')
-        details['email'] = request.form.get('email')
-        details['psw'] = request.form.get('psw')
-        details['psw-repeat'] = request.form.get('psw-repeat')
+        
         if not details['username']:
             errors.append('The username cannot be empty')
-        if not val_username:
+        elif not val_username:
             errors.append('Username must be alphanumeric beginning with a letter and 2-50 characters long.')
         if not details['email']:
             errors.append('The email cannot be empty')
-        if not val_email:
+        elif not val_email:
             errors.append('Invalid email format')
         if details['psw']:
             if not val_psw:
@@ -88,8 +88,20 @@ def register():
             errors.append('The psw cannot be empty')
         if not details['psw-repeat']:
             errors.append('The psw-repeat cannot be empty')
-        if details['psw-repeat'] != details['psw']:
+        elif details['psw-repeat'] != details['psw']:
             errors.append('The psw-repeat must be the same as psw')
+        if not details['name']:
+            errors.append('The name cannot be empty')
+        elif not val_name:
+            errors.append('Name must be begin with a Capital letter and be 2-25 characters long. Containing only: letters, spaces and/or dashes.')
+        if not details['surname']:
+            errors.append('The surname cannot be empty')
+        elif not val_surname:
+            errors.append('Surname must be begin with a Capital letter and be 2-25 characters long. Containing only: letters, spaces and/or dashes.')
+        if not details['bio']:
+            errors.append('The bio cannot be empty')
+        elif len(details['bio']) > 500:
+            errors.append('The Bio cannot be longer than 500 characters')
         
         
         # if db.get_user({'username': details['username']}):
@@ -103,7 +115,6 @@ def register():
             # return redirect( url_for('login') )
         # for error in errors:
         #     flash(error, 'danger')
-    return render_template('register.html', title='Register', details=details, username=username, email=email, errors=errors)
     #     flash(f'Account created for {form.username.data}!')
     # return render_template('register.html', title='Register', 
     # , form = form

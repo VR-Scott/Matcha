@@ -5,9 +5,12 @@
             <p class="article-content">{{ username }} </p>
             <p class="article-content">email_val: {{ email }} </p>
             <p class="article-content">Username is: {{ details['username'] }} </p>
+            <p class="article-content">Name is: {{ details['name'] }} </p>
+            <p class="article-content">Surname is: {{ details['surname'] }} </p>
             <p class="article-content">Email is: {{ details['email'] }} </p>
             <p class="article-content">Password is: {{ details['psw'] }}</p>
             <p class="article-content">Password_repeat is: {{ details['psw-repeat'] }} </p>
+            <p class="article-content">Bio is: {{ details['bio'] }} </p>
             <p class="article-content">Errors:</p>
             {% for error in errors %}
             <p class="article-content">{{ error }} </p> 
@@ -22,6 +25,18 @@
                     <p>Username must be alphanumeric beginning with a letter and 2-50 characters long.</p>
                     <label for="username"><b>Username</b></label>
                     <input type="text" placeholder="Enter username" name="username" value="{{ details['username'] }}"
+                    autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <p>Name must be begin with a Capital letter and 2-25 characters long. Containing only: letters, spaces and/or dashes.</p>
+                    <label for="name"><b>Name</b></label>
+                    <input type="text" placeholder="Enter name" name="name" value="{{ details['name'] }}"
+                    autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <p>Surname must be begin with a Capital letter and 2-25 characters long. Containing only: letters, spaces and/or dashes.</p>
+                    <label for="surname"><b>Surname</b></label>
+                    <input type="text" placeholder="Enter surname" name="surname" value="{{ details['surname'] }}"
                     autocomplete="off">
                 </div>
                 <div class="form-group">
@@ -42,6 +57,10 @@
                     <input type="password" placeholder="Repeat Password" name="psw-repeat" value="{{ details['psw'] }}"
                     
                     >
+                </div>
+                <div class="form-group">
+                    <label for="bio"><b>Bio</b></label>
+                    <textarea rows="10" cols="50" placeholder="Enter bio" name="bio" value="{{ details['bio'] }}">{{ details['bio'] }}</textarea>
                 </div>
             </fieldset>
             <div class="form-group">
